@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block page_title %}AI HR Interview{% endblock %}
+{% block content %}
+<section class="panel" id="hrApp" data-interview="{{ interview.id }}" data-total="{{ interview.total_questions }}">
+  <p class="text-primary fw-semibold mb-1">AI Interview Coach Online</p>
+  <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="mb-0" id="hrQuestionNumber">Question 1</h2><span class="badge text-bg-primary" id="hrProgress">1 / {{ interview.total_questions }}</span></div>
+  <article class="mini-item"><h3 id="hrQuestion">Loading your first question...</h3></article>
+  <label>Your answer<textarea class="form-control transcript" id="hrAnswer" placeholder="Type your answer or record it with your microphone"></textarea></label>
+  <div class="voice-controls">
+    <button class="btn btn-primary" id="startHrRecording"><i class="fa-solid fa-microphone"></i> Start Recording</button>
+    <button class="btn btn-outline-danger d-none" id="stopHrRecording"><i class="fa-solid fa-stop"></i> Stop Recording</button>
+    <button class="btn btn-primary" id="submitHr" disabled>Submit Answer</button>
+  </div>
+  <p id="hrRecordingStatus" class="status-pill" aria-live="polite">Ready to record</p>
+  <div id="hrFeedback" class="mt-3" aria-live="polite"></div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/hr_interview.js') }}"></script>{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block page_title %}Profile{% endblock %}
+{% block content %}
+<section class="panel glass">
+  <h2>{{ current_user.name }}</h2><p>{{ current_user.email }}</p>
+  <form method="post" class="grid-form">
+    <label>Phone<input class="form-control" name="phone" value="{{ profile.phone or '' }}"></label>
+    <label>College<input class="form-control" name="college" value="{{ profile.college or '' }}"></label>
+    <label>Degree<input class="form-control" name="degree" value="{{ profile.degree or '' }}"></label>
+    <label>Department<input class="form-control" name="department" value="{{ profile.department or '' }}"></label>
+    <label>Graduation Year<input class="form-control" name="graduation_year" value="{{ profile.graduation_year or '' }}"></label>
+    <label>Skills<input class="form-control" name="skills" value="{{ profile.skills or '' }}"></label>
+    <label class="span-2">Bio<textarea class="form-control" name="bio">{{ profile.bio or '' }}</textarea></label>
+    <button class="btn btn-primary">Save Profile</button>
+  </form>
+</section>
+{% endblock %}

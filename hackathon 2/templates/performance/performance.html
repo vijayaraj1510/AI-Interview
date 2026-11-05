@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block page_title %}Performance{% endblock %}
+{% block content %}
+<div class="stats-grid">
+  <div class="stat-card"><span>Average Score</span><strong>{{ stats.average }}%</strong></div>
+  <div class="stat-card"><span>Highest Score</span><strong>{{ stats.highest }}%</strong></div>
+  <div class="stat-card"><span>Assessments</span><strong>{{ stats.total }}</strong></div>
+  <div class="stat-card"><span>Improvement</span><strong>{{ 'Keep going' if not stats.total else 'In progress' }}</strong></div>
+</div>
+{% if not stats.total %}<section class="panel mt-4"><h2>Your performance will grow here</h2><p class="mb-0">Your performance data will appear here after you complete your first assessment.</p></section>{% endif %}
+<div class="two-col mt-4">
+  <section class="panel"><h2>Score Trend</h2><div class="chart-box"><canvas id="trendChart" data-label="Score trend" data-labels='[]' data-values='[]'></canvas></div></section>
+  <section class="panel"><h2>Module Performance</h2><div class="chart-box"><canvas id="moduleChart" data-label="Average score" data-labels='["Aptitude","Technical","Spoken","HR"]' data-values='[{{ stats.by_type.aptitude }},{{ stats.by_type.technical }},{{ stats.by_type.spoken }},{{ stats.by_type.hr }}]'></canvas></div></section>
+</div>
+<section class="panel mt-4"><h2>Assessment History</h2>{% include "partials_attempts.html" %}</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/charts.js') }}"></script>{% endblock %}

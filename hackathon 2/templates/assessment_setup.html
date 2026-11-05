@@ -1,0 +1,11 @@
+<section class="panel glass">
+  <h2>{{ qtype|title }} Assessment Setup</h2>
+  <form method="post" action="{{ url_for('assessment_start', qtype=qtype) }}" class="grid-form" id="assessmentSetup">
+    <label>Category<select name="category" class="form-select" id="assessmentCategory"><option value="%">All Categories</option>{% for c in categories %}<option value="{{ c }}">{{ c }}</option>{% endfor %}</select></label>
+    <label>Topic<select name="topic" class="form-select" id="assessmentTopic"><option value="%">All Topics</option>{% for t in topics %}<option value="{{ t.topic }}" data-category="{{ t.category }}">{{ t.topic }}</option>{% endfor %}</select></label>
+    <label>Difficulty<select name="difficulty" class="form-select"><option value="%">All Difficulties</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option></select></label>
+    <label>Number of Questions<input class="form-control" type="number" name="count" value="10" min="1" max="50"></label>
+    <label>Time Limit (minutes)<input class="form-control" type="number" name="time_limit" value="10" min="1" max="180"></label>
+    <button class="btn btn-primary"><i class="fa-solid fa-play"></i> Start Test</button>
+  </form>
+</section>

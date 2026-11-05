@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block page_title %}{{ (base_type|title ~ ' Questions') if base_type else 'Question Bank' }}{% endblock %}
+{% block content %}
+<section class="panel glass">
+  <div class="panel-actions"><h2>Questions</h2><a class="btn btn-primary" href="{{ url_for('admin_question_create') }}"><i class="fa-solid fa-plus"></i> Create Question</a></div>
+  <form class="filter-grid" method="get">
+    <input class="form-control" name="search" placeholder="Search question" value="{{ request.args.get('search','') }}">
+    {% if not base_type %}<select class="form-select" name="type"><option value="">All Types</option>{% for question_type in ['aptitude', 'technical', 'hr', 'spoken'] %}<option value="{{ question_type }}" {% if request.args.get('type') == question_type %}selected{% endif %}>{{ question_type|title }}</option>{% endfor %}</select>{% endif %}
+    <input class="form-control" name="category" placeholder="Category" value="{{ request.args.get('category','') }}">
+    <input class="form-control" name="topic" placeholder="Topic" value="{{ request.args.get('topic','') }}">
+    <select class="form-select" name="difficulty"><option value="">All Difficulty</option><option>easy</option><option>medium</option><option>hard</option></select>
+    <select class="form-select" name="availability"><option value="">All Question Status</option><option value="active" {% if request.args.get('availability') == 'active' %}selected{% endif %}>Active</option><option value="inactive" {% if request.args.get('availability') == 'inactive' %}selected{% endif %}>Inactive</option></select>
+    <select class="form-select" name="status"><option value="">All Publication States</option><option value="published" {% if request.args.get('status') == 'published' %}selected{% endif %}>Published</option><option value="draft" {% if request.args.get('status') == 'draft' %}selected{% endif %}>Draft</option></select>
+    <button class="btn btn-outline-info">Filter</button>
+  </form>
+  <form method="post" action="{{ url_for('admin_questions_bulk') }}" id="bulkForm">
+    <div class="bulkbar"><select class="form-select" name="bulk_action"><option value="publish">Bulk Publish</option><option value="unpublish">Bulk Unpublish</option><option value="delete">Bulk Deactivate</option></select><button class="btn btn-warning">Apply</button></div>
+  </form>
+    <div class="table-responsive"><table class="table table-dark table-hover align-middle">
+      <thead><tr><th><input type="checkbox" id="selectAll"></th><th>ID</th><th>Question</th><th>Type</th><th>Category</th><th>Topic</th><th>Difficulty</th><th>Published</th><th>Question Status</th><th>Created</th><th>Actions</th></tr></thead>
+      <tbody>{% for q in questions %}<tr><td><input form="bulkForm" type="checkbox" name="ids" value="{{ q.id }}"></td><td>{{ q.id }}</td><td>{{ q.question }}</td><td>{{ q.type }}</td><td>{{ q.category }}</td><td>{{ q.topic }}</td><td><span class="badge text-bg-info">{{ q.difficulty }}</span></td><td><span class="badge {{ 'text-bg-success' if q.status=='published' else 'text-bg-secondary' }}">{{ q.status|title }}</span></td><td><form method="post" action="{{ url_for('admin_question_status', id=q.id) }}" class="status-form"><select class="form-select form-select-sm" name="availability" aria-label="Question status" onchange="this.form.submit()"><option value="active" {% if q.is_active %}selected{% endif %}>Active</option><option value="inactive" {% if not q.is_active %}selected{% endif %}>Inactive</option></select></form></td><td>{{ q.created_at }}</td><td class="actions"><a class="btn btn-sm btn-outline-info" href="{{ url_for('admin_question_edit', id=q.id) }}">Edit</a><form method="post" action="{{ url_for('admin_question_action', action='delete', id=q.id) }}" class="inline-action"><button class="btn btn-sm btn-outline-danger" type="submit">Deactivate</button></form></td></tr>{% else %}<tr><td colspan="11" class="empty">No questions match the selected filters.</td></tr>{% endfor %}</tbody>
+    </table></div>
+  <form method="post" enctype="multipart/form-data" action="{{ url_for('admin_import') }}" class="import-box"><input class="form-control" type="file" name="csv_file" accept=".csv"><button class="btn btn-outline-light">Import CSV</button></form>
+</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/admin.js') }}"></script>{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-card glass wide">
+  <h1>Create your account</h1>
+  <form method="post" class="grid-form">
+    <label>Full Name<input class="form-control" name="name" required></label>
+    <label>Email<input class="form-control" type="email" name="email" required></label>
+    <label>Password<input class="form-control" type="password" name="password" required></label>
+    <label>Confirm Password<input class="form-control" type="password" name="confirm_password" required></label>
+    <label>College<input class="form-control" name="college" required></label>
+    <label>Degree<input class="form-control" name="degree" required></label>
+    <label>Department<input class="form-control" name="department" required></label>
+    <button class="btn btn-primary">Register</button>
+  </form>
+  <p class="mt-3">Already registered? <a href="{{ url_for('login') }}">Login</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block page_title %}Aptitude Practice{% endblock %}
+{% block content %}{% include "assessment_setup.html" %}{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/assessment_setup.js') }}"></script>{% endblock %}

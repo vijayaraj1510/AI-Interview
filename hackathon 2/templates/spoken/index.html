@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block page_title %}AI Speaking Coach{% endblock %}
+{% block content %}
+<div class="two-col" id="spokenApp" data-active="{{ 'true' if practice else 'false' }}">
+  <section class="panel">
+    <p class="text-primary fw-semibold mb-1">AI Speaking Coach</p>
+    <div id="spokenWelcome" {% if practice %}class="d-none"{% endif %}>
+      <h2>Speaking practice</h2>
+      <p>Answer one question at a time. Your progress is saved as you continue through the session.</p>
+      <button class="btn btn-primary" id="startSpoken">Start Practice</button>
+    </div>
+    <div id="spokenPractice" {% if not practice %}class="d-none"{% endif %}>
+      <div class="d-flex justify-content-between align-items-center mb-3"><h2 class="mb-0" id="spokenQuestionNumber">Question {{ practice.index + 1 if practice else 1 }} of {{ practice.total if practice else 0 }}</h2><span class="badge text-bg-primary" id="spokenProgress">{{ practice.index + 1 if practice else 0 }} / {{ practice.total if practice else 0 }}</span></div>
+      <article class="mini-item"><h3 id="spokenQuestion">{{ questions[practice.index] if practice else 'Start practice to load an active question.' }}</h3></article>
+      <div class="voice-controls"><button class="btn btn-primary" id="startSpeech"><i class="fa-solid fa-microphone"></i> Start Speaking</button><button class="btn btn-outline-danger" id="stopSpeech">Stop</button><button class="btn btn-outline-light" id="clearSpeech">Clear</button></div>
+      <p id="speechStatus" class="status-pill">Ready to listen</p>
+      <label>Your answer<textarea id="transcript" maxlength="4000" class="form-control transcript" placeholder="Your spoken answer will appear here..."></textarea></label>
+      <div class="d-flex justify-content-between align-items-center"><span id="transcriptCounter" class="text-secondary small">0 / 4000</span><div class="d-flex gap-2"><button class="btn btn-outline-secondary" id="skipSpoken">Skip</button><button class="btn btn-success" id="submitSpoken">Submit Answer</button></div></div>
+    </div>
+  </section>
+  <aside class="panel"><p class="text-primary fw-semibold mb-1">Live feedback</p><h2>Speak naturally</h2><p>Use a clear opening, one relevant example, and a confident closing.</p><div class="mini-item"><b>Fluency</b><p class="mb-0">Keep a steady pace and pause between ideas.</p></div><div class="mini-item"><b>Clarity</b><p class="mb-0">Use short sentences with concrete details.</p></div></aside>
+</div>
+<section class="panel mt-4 d-none" id="spokenResult"><h2>Answer feedback</h2><div id="spokenOutput"></div></section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/speech.js') }}"></script>{% endblock %}

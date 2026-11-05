@@ -1,0 +1,19 @@
+{
+  "name": "InterviewAI",
+  "short_name": "InterviewAI",
+  "description": "AI-Powered Interview Preparation and Assessment Platform",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/static/images/interviewai-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

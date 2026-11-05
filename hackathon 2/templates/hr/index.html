@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block page_title %}AI HR Interview{% endblock %}
+{% block content %}
+<section class="panel glass">
+  <h2>Start Interview</h2>
+  <form method="post" action="{{ url_for('hr_start') }}" class="grid-form">
+    <label>Category<select class="form-select" name="category"><option>General HR</option><option>Behavioral</option><option>Situational</option><option>Career</option><option>Teamwork</option><option>Leadership</option><option>Conflict</option><option>Projects</option></select></label>
+    <label>Total Questions<input class="form-control" type="number" name="total_questions" value="5" min="1" max="10"></label>
+    <button class="btn btn-primary">Start Interview</button>
+  </form>
+</section>
+{% endblock %}

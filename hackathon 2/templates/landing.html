@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}InterviewAI - Neural Nexus{% endblock %}
+{% block content %}
+<section class="landing-hero">
+  <nav class="landing-nav"><a class="brand" href="#"><span class="brand-mark">AI</span>InterviewAI</a><div><a href="{{ url_for('login') }}" class="btn btn-outline-light">Login</a><a href="{{ url_for('register') }}" class="btn btn-primary ms-2">Start Preparing</a></div></nav>
+  <div class="hero-copy">
+    <p class="eyebrow">Neural Nexus presents</p>
+    <h1>Prepare Smarter.<br>Interview Better.</h1>
+    <p>AI-powered interview preparation and assessment platform for students and freshers.</p>
+    <div class="hero-actions"><a href="{{ url_for('register') }}" class="btn btn-primary btn-lg">Start Preparing</a><a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Login</a></div>
+  </div>
+</section>
+<section class="section-band">
+  <h2>Why InterviewAI?</h2>
+  <div class="feature-grid">
+    {% for icon,title,text in [('microphone','Spoken English','Practice responses with continuous voice recognition.'),('calculator','Aptitude','Timed database-driven tests with explanations.'),('laptop-code','Technical','Fresh technical questions managed by admins.'),('user-tie','AI HR Interview','Dynamic HR questions and structured feedback.'),('chart-line','Analytics','Track module-wise growth over time.'),('lightbulb','Personalized Recommendations','Get focused next steps from your performance.')] %}
+    <article class="feature-card"><i class="fa-solid fa-{{ icon }}"></i><h3>{{ title }}</h3><p>{{ text }}</p></article>
+    {% endfor %}
+  </div>
+</section>
+<section class="section-band muted"><h2>How It Works</h2><div class="steps"><span>1. Choose a module</span><span>2. Practice with AI</span><span>3. Review explanations</span><span>4. Improve with recommendations</span></div></section>
+<section class="section-band"><h2>FAQ</h2><div class="accordion" id="faq"><div class="accordion-item glass"><h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#f1">Does it need an API key?</button></h2><div id="f1" class="accordion-collapse collapse show"><div class="accordion-body">Assessments work without one. AI feedback shows a friendly setup message until the key is configured.</div></div></div></div></section>
+<footer class="footer">InterviewAI by Neural Nexus</footer>
+{% endblock %}

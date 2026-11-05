@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block page_title %}Hello, {{ current_user.name }}{% endblock %}
+{% block content %}
+<div class="stats-grid">
+  {% for label,value,icon in [('Total Assessments', stats.total,'clipboard-check'),('Average Score', stats.average ~ '%','gauge-high'),('Technical Score', stats.by_type.technical ~ '%','code'),('Aptitude Score', stats.by_type.aptitude ~ '%','calculator')] %}
+  <div class="stat-card glass"><i class="fa-solid fa-{{ icon }}"></i><span>{{ label }}</span><strong>{{ value }}</strong></div>
+  {% endfor %}
+</div>
+<div class="two-col mt-4">
+  <section class="panel glass">
+    <h2>Performance Overview</h2>
+    {% if stats.total %}
+    <div class="chart-box chart-box-compact"><canvas id="dashboardPerformanceChart" data-simple-performance="true" data-labels='["Overall","Aptitude","Technical","Spoken English","HR Interview"]' data-values='[{{ stats.average }},{{ stats.by_type.aptitude }},{{ stats.by_type.technical }},{{ stats.by_type.spoken }},{{ stats.by_type.hr }}]'></canvas></div>
+    {% else %}
+    <div class="empty"><b>No performance data yet</b><p class="mb-0">Complete an assessment to see your performance.</p></div>
+    {% endif %}
+  </section>
+  <section class="panel glass"><h2>Recommended Practice</h2>{% for rec in recs %}<div class="mini-item"><b>{{ rec.title }}</b><p>{{ rec.description }}</p><span class="badge text-bg-info">{{ rec.priority }}</span></div>{% else %}<p class="empty">Complete an assessment to receive personalized recommendations.</p>{% endfor %}</section>
+</div>
+<section class="panel glass mt-4"><h2>Recent Assessments</h2>{% include "partials_attempts.html" %}</section>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/charts.js') }}"></script>{% endblock %}

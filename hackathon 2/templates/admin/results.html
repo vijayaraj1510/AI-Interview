@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block page_title %}Assessment Results{% endblock %}
+{% block content %}<section class="panel glass"><h2>All Student Results</h2><div class="table-responsive"><table class="table table-dark table-hover"><thead><tr><th>Student</th><th>Assessment</th><th>Topic</th><th>Score</th><th>Percentage</th><th>Date</th><th>View</th></tr></thead><tbody>{% for r in results %}<tr><td>{{ r.student }}</td><td>{{ r.assessment_type }}</td><td>{{ r.topic }}</td><td>{{ r.obtained_marks }}/{{ r.total_marks }}</td><td>{{ r.percentage }}%</td><td>{{ r.created_at }}</td><td><span class="badge text-bg-info">Saved</span></td></tr>{% else %}<tr><td colspan="7" class="empty">No assessment history yet.</td></tr>{% endfor %}</tbody></table></div></section>{% endblock %}

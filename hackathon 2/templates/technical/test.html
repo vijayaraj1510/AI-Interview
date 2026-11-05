@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block page_title %}Technical Test{% endblock %}
+{% block content %}{% include "assessment_test.html" %}{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/assessment.js') }}"></script>{% endblock %}

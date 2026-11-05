@@ -1,0 +1,25 @@
+.live-preview {
+  position: sticky;
+  top: 108px;
+  align-self: start;
+}
+.actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.status-form { min-width: 112px; }
+.inline-action { display: inline-flex; }
+.import-box {
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+.bulkbar .form-select { max-width: 220px; }
+.admin-analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+@media (max-width: 1100px) {
+  .admin-analytics-grid { grid-template-columns: 1fr; }
+}

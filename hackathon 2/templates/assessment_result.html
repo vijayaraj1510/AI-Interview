@@ -1,0 +1,19 @@
+<section class="panel glass result-hero">
+  <h2>Assessment Completed</h2>
+  <strong>{{ attempt.percentage }}%</strong>
+  <p>Correct: {{ attempt.correct_answers }} | Wrong: {{ attempt.wrong_answers }} | Unanswered: {{ attempt.unanswered }} | Time Taken: {{ attempt.time_taken }}s</p>
+  <a class="btn btn-primary" href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+  <a class="btn btn-outline-light" href="{{ url_for(qtype) }}">Try Again</a>
+</section>
+<section class="panel glass mt-4">
+  <h2>Question-wise Review</h2>
+  {% for q in questions %}
+  {% set ans = answers.get(q.id) %}
+  <article class="review-item">
+    <h3>{{ loop.index }}. {{ q.question_text_snapshot }}</h3>
+    <p>Your Answer: <b>{{ ans.selected_answer if ans and ans.selected_answer else 'Unanswered' }}</b> <span class="badge {{ 'text-bg-success' if ans and ans.is_correct else 'text-bg-danger' }}">{{ 'Correct' if ans and ans.is_correct else 'Wrong' }}</span></p>
+    <p>Correct Answer: <b>{{ q.correct_answer_snapshot }}</b></p>
+    <p>{{ q.explanation_snapshot }}</p>
+  </article>
+  {% endfor %}
+</section>

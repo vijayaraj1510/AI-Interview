@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Login | InterviewAI{% endblock %}
+{% block content %}
+<div class="login-shell">
+  <section class="login-brand-panel" aria-label="InterviewAI introduction">
+    <a class="login-brand" href="{{ url_for('landing') }}"><span class="login-brand-mark">AI</span><span>InterviewAI</span></a>
+    <div class="login-brand-copy">
+      <div class="interview-robot" aria-hidden="true">
+        <div class="robot-antenna"></div><div class="robot-head"><span class="robot-eye"></span><span class="robot-eye"></span></div><div class="robot-neck"></div><div class="robot-body"><span class="robot-core"></span></div><div class="robot-mic"><span></span></div>
+      </div>
+      <p class="login-kicker">AI interview practice</p>
+      <h1>Prepare smarter.<br>Interview better.</h1>
+      <p>Your AI-powered interview preparation platform.</p>
+    </div>
+  </section>
+  <section class="login-form-panel">
+    <div class="login-card">
+      <div class="login-card-brand"><span class="login-card-mark">AI</span> InterviewAI</div>
+      <h2>Welcome Back <span aria-hidden="true">&#128075;</span></h2>
+      <p>Login to continue your interview preparation.</p>
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}<div class="alert alert-{{ category }} login-alert" role="alert">{{ message }}</div>{% endfor %}
+      {% endwith %}
+      <form method="post" class="login-form">
+        <label for="email">Email Address</label>
+        <div class="login-input"><i class="fa-regular fa-envelope" aria-hidden="true"></i><input id="email" class="form-control" type="email" name="email" placeholder="Enter your email" autocomplete="email" required></div>
+        <label for="password">Password</label>
+        <div class="login-input"><i class="fa-solid fa-lock" aria-hidden="true"></i><input id="password" class="form-control" type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required><button class="password-toggle" type="button" id="passwordToggle" aria-label="Show password" title="Show password"><i class="fa-regular fa-eye"></i></button></div>
+        <a class="forgot-link" href="mailto:admin@interviewai.com?subject=InterviewAI%20password%20reset%20request">Forgot Password?</a>
+        <button class="btn login-submit" type="submit">Login <i class="fa-solid fa-arrow-right"></i></button>
+      </form>
+      <p class="login-register">Don't have an account? <a href="{{ url_for('register') }}">Create Account</a></p>
+    </div>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.getElementById("passwordToggle")?.addEventListener("click", function () {
+    const input = document.getElementById("password");
+    const visible = input.type === "text";
+    input.type = visible ? "password" : "text";
+    this.setAttribute("aria-label", visible ? "Show password" : "Hide password");
+    this.setAttribute("title", visible ? "Show password" : "Hide password");
+    this.querySelector("i").className = visible ? "fa-regular fa-eye" : "fa-regular fa-eye-slash";
+  });
+</script>
+{% endblock %}

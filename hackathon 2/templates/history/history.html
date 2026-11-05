@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block page_title %}History{% endblock %}
+{% block content %}<section class="panel glass"><h2>Assessment History</h2><div class="filter-tabs"><button class="btn btn-sm btn-primary" data-filter="all">All</button><button class="btn btn-sm btn-outline-light" data-filter="aptitude">Aptitude</button><button class="btn btn-sm btn-outline-light" data-filter="technical">Technical</button><button class="btn btn-sm btn-outline-light" data-filter="spoken">Spoken</button><button class="btn btn-sm btn-outline-light" data-filter="hr">HR</button></div>{% include "partials_attempts.html" %}</section>{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block page_title %}Spoken English Result{% endblock %}
+{% block content %}
+<section class="panel result-hero"><p class="text-primary fw-semibold mb-1">AI Speaking Coach</p><h2>Spoken English Assessment Complete</h2><strong>{{ result.score }}%</strong><p>Average score across {{ result.total }} questions</p></section>
+<div class="stats-grid mt-4">
+  {% for label,value in [('Total Questions', result.total), ('Answered', result.answered), ('Skipped', result.skipped), ('Fluency', result.fluency ~ '%'), ('Grammar', result.grammar ~ '%'), ('Pronunciation', result.pronunciation ~ '%'), ('Confidence', result.confidence ~ '%')] %}<div class="stat-card"><span>{{ label }}</span><strong>{{ value }}</strong></div>{% endfor %}
+</div>
+<div class="two-col mt-4"><section class="panel"><h2>Recommended Practice</h2><p>Practice one short, structured answer each day. Use an opening, a concrete example, and a concise conclusion.</p></section><section class="panel"><h2>AI Feedback</h2><p>{{ attempts[-1].feedback if attempts else 'Keep practicing to build confidence and clarity.' }}</p></section></div>
+<section class="panel mt-4"><h2>Question Review</h2>{% for attempt in attempts %}<article class="review-item"><h3>Question {{ loop.index }}: {{ attempt.question }}</h3><p>{{ attempt.transcript or 'Skipped' }}</p><b>Score: {{ attempt.score or 0 }}%</b></article>{% endfor %}</section>
+<div class="voice-controls mt-4"><form method="post" action="{{ url_for('spoken_start') }}"><button class="btn btn-primary">Practice Again</button></form><a class="btn btn-outline-secondary" href="{{ url_for('dashboard') }}">Go to Dashboard</a></div>
+{% endblock %}

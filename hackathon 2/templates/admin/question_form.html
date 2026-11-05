@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block page_title %}{{ 'Edit Question' if question else 'Create Question' }}{% endblock %}
+{% block content %}
+<div class="form-preview-grid">
+<section class="panel glass">
+  <h2>{{ 'Edit Question' if question else 'Create Question' }}</h2>
+  <form method="post" class="grid-form" id="questionForm">
+    <label>Question Type<select class="form-select preview-input" name="type" data-preview="pType">{% for question_type in ['aptitude', 'technical', 'hr', 'spoken'] %}<option value="{{ question_type }}" {% if question and question.type==question_type %}selected{% endif %}>{{ question_type|title }}</option>{% endfor %}</select></label>
+    <label>Category<input class="form-control preview-input" name="category" data-preview="pCategory" value="{{ question.category if question else '' }}" required></label>
+    <label>Topic<input class="form-control preview-input" name="topic" data-preview="pTopic" value="{{ question.topic if question else '' }}" required></label>
+    <label>Difficulty<select class="form-select preview-input" name="difficulty" data-preview="pDifficulty"><option value="easy">easy</option><option value="medium" {% if question and question.difficulty=='medium' %}selected{% endif %}>medium</option><option value="hard" {% if question and question.difficulty=='hard' %}selected{% endif %}>hard</option></select></label>
+    <label class="span-2">Question<textarea class="form-control preview-input" name="question" data-preview="pQuestion" required>{{ question.question if question else '' }}</textarea></label>
+    <label>Option A<input class="form-control preview-input" name="option_a" data-preview="pA" value="{{ question.option_a if question else '' }}" required></label>
+    <label>Option B<input class="form-control preview-input" name="option_b" data-preview="pB" value="{{ question.option_b if question else '' }}" required></label>
+    <label>Option C<input class="form-control preview-input" name="option_c" data-preview="pC" value="{{ question.option_c if question else '' }}" required></label>
+    <label>Option D<input class="form-control preview-input" name="option_d" data-preview="pD" value="{{ question.option_d if question else '' }}" required></label>
+    <label>Correct Answer<select class="form-select preview-input" name="correct_answer" data-preview="pCorrect">{% for a in ['A','B','C','D'] %}<option value="{{ a }}" {% if question and question.correct_answer==a %}selected{% endif %}>{{ a }}</option>{% endfor %}</select></label>
+    <label>Status<select class="form-select" name="status"><option value="draft">Draft</option><option value="published" {% if question and question.status=='published' %}selected{% endif %}>Published</option></select></label>
+    <label>Marks<input class="form-control" type="number" name="marks" value="{{ question.marks if question else 1 }}"></label>
+    <label>Time Limit<input class="form-control" type="number" name="time_limit" value="{{ question.time_limit if question else 60 }}"></label>
+    <label class="span-2">Explanation<textarea class="form-control" name="explanation">{{ question.explanation if question else '' }}</textarea></label>
+    <button class="btn btn-outline-light" name="action" value="draft">Save Draft</button><button class="btn btn-primary" name="action" value="publish">Publish Question</button><a class="btn btn-outline-danger" href="{{ url_for('admin_questions') }}">Cancel</a>
+  </form>
+</section>
+<aside class="panel glass live-preview">
+  <h2>Live Preview</h2><p><span id="pType">type</span> | <span id="pCategory">category</span> | <span id="pTopic">topic</span> | <span id="pDifficulty">difficulty</span></p>
+  <h3 id="pQuestion">Question preview</h3>
+  <ol type="A"><li id="pA">Option A</li><li id="pB">Option B</li><li id="pC">Option C</li><li id="pD">Option D</li></ol>
+  <span class="badge text-bg-success">Correct: <span id="pCorrect">A</span></span>
+</aside>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/admin.js') }}"></script>{% endblock %}

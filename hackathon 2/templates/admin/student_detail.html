@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block page_title %}Student Detail{% endblock %}
+{% block content %}<section class="panel glass"><h2>{{ student.name }}</h2><p>{{ student.email }} | {{ student.college }} | {{ student.department }}</p></section><section class="panel glass mt-4"><h2>Performance Chart</h2><canvas id="moduleChart" data-labels='["Aptitude","Technical","Spoken","HR"]' data-values='[{{ stats.by_type.aptitude }},{{ stats.by_type.technical }},{{ stats.by_type.spoken }},{{ stats.by_type.hr }}]'></canvas></section><section class="panel glass mt-4"><h2>Assessment History</h2>{% include "partials_attempts.html" %}</section>{% endblock %}{% block scripts %}<script src="{{ url_for('static', filename='js/charts.js') }}"></script>{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block page_title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="stats-grid">
+  {% for label,value,icon in [('Total Students',stats.students,'users'),('Total Questions',stats.questions,'database'),('Published Questions',stats.published,'circle-check'),('Draft Questions',stats.draft,'pen'),('Total Assessments',stats.assessments,'clipboard-list'),('Average Score',stats.avg_score ~ '%','chart-line')] %}
+  <div class="stat-card glass"><i class="fa-solid fa-{{ icon }}"></i><span>{{ label }}</span><strong>{{ value }}</strong></div>
+  {% endfor %}
+</div>
+<div class="two-col mt-4"><section class="panel glass"><h2>Questions by Status</h2><canvas id="adminChart" data-labels='["Published","Draft"]' data-values='[{{ stats.published }},{{ stats.draft }}]'></canvas></section><section class="panel glass"><h2>Recent Activity</h2><p class="empty">New student assessments and question edits appear in the result pages.</p></section></div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/charts.js') }}"></script>{% endblock %}

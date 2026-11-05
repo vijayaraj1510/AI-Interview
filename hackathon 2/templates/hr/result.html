@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block page_title %}HR Interview Result{% endblock %}
+{% block content %}
+<section class="panel glass result-hero"><h2>Interview Complete</h2><strong>{{ interview.overall_score }}%</strong><p>{{ interview.feedback }}</p><a class="btn btn-primary" href="{{ url_for('dashboard') }}">Back to Dashboard</a></section>
+<section class="panel glass mt-4">{% for a in answers %}<article class="review-item"><h3>{{ a.question }}</h3><p>{{ a.answer }}</p><p><b>Score:</b> {{ a.score }}%</p><p>{{ a.feedback }}</p></article>{% endfor %}</section>
+{% endblock %}
